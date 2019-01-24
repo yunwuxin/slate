@@ -151,7 +151,7 @@ class Content extends React.Component {
 
     // COMPAT: In Firefox, there's a but where `getSelection` can return `null`.
     // https://bugzilla.mozilla.org/show_bug.cgi?id=827585 (2018/11/07)
-    if (!native || editor.isComposing()) {
+    if (!native) {
       return
     }
 
@@ -347,7 +347,7 @@ class Content extends React.Component {
       const native = window.getSelection()
       const range = findRange(native, editor)
 
-      if (range && range.equals(selection.toRange())) {
+      if (range && range.equals(selection.toRange()) && !editor.isComposing()) {
         this.updateSelection()
         return
       }
